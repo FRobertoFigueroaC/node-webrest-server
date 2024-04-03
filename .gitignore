@@ -1,0 +1,6 @@
+
+.DS_Store
+node_modules/
+keys/
+.env
+public/assets/heroes/*.jpg
