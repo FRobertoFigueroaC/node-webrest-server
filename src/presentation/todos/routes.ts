@@ -8,7 +8,11 @@ export class TodoRoutes {
 
     const todoController = new TodosController();
     //TODO fix this below
-    router.get('/api/todos', todoController.getTodos);
+    router.get('/', todoController.getTodos);
+    router.get('/:id', todoController.getTodoById);
+    router.post('/', todoController.createTodos);
+    router.put('/:id', todoController.updateTodo);
+    router.delete('/:id', todoController.deleteTodo);
 
     return router
   }
