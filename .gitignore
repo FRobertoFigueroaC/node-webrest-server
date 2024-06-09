@@ -4,3 +4,5 @@ node_modules/
 keys/
 .env
 public/assets/heroes/*.jpg
+postgres/
+prisma/migrations/
