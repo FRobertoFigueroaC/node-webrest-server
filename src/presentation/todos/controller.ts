@@ -22,34 +22,39 @@ export class TodosController {
     if (isNaN(id)) {
       return res.status(400).json({error: 'ID argument is not valid'});
     }
+
+    try {
+      const todo = await this.todoRepository.findById(id);
+      return res.json( todo )
+    } catch (error) {
+      return res.status( 404 ).json( { error: `Todo with id ${ id } not found` } )
+    }
     
-    const todo = await this.todoRepository.findById(id);
-    (todo)
-      ? res.json(todo)
-      : res.status(404).json({error: `Todo with id ${id} not found`})
   }
 
   public createTodos =  async(req: Request, res: Response) => {
     const [ error, createTodoDto ] =  CreateTodoDto.create( req.body )
     if ( error ) return res.status(404).json({error});
 
-    const todo = await this.todoRepository.create( createTodoDto! );
+    try {
+      const todo = await this.todoRepository.create( createTodoDto! );
+      return res.json( todo );
+    } catch (error) {
+      return res.status(400).json({error});
+    }
 
-    return res.json( todo );
   }
   public updateTodo =  async (req: Request, res: Response) => {
     const id = Number( req.params.id );
     const [ error, updateTodoDto ] = UpdateTodoDto.update( { ...req.body, id });
-    const {text, completedAt} = req.body;
-
     if ( error ) return res.status(404).json({error});
 
-    const todo = await this.todoRepository.updateTodo( updateTodoDto! );
- 
-    if(todo){
-      return res.json(todo)
+    try {
+      const todo = await this.todoRepository.updateTodo( updateTodoDto! );
+      return res.json(todo);
+    } catch (error) {
+      return res.status( 400 ).json( { error } );
     }
-    return res.status(404).json({error: `Todo with id ${id} not found`});
   }
 
   public deleteTodo =  async(req: Request, res: Response) => {
@@ -58,13 +63,12 @@ export class TodosController {
       return res.status(400).json({error: 'ID argument is not valid'});
     }
 
-    const todo = await this.todoRepository.deleteById(id);
-
-  
-    if(todo){
+    try {
+      const todo = await this.todoRepository.deleteById(id);
       return res.json({msg: `Todo with id ${id} deleted`});
+    } catch (error) {
+      return res.status( 400 ).json( { error } );
     }
-    return res.status(404).json({error: `Todo with id ${id} not found`});
   }
 
 }
