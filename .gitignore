@@ -6,3 +6,4 @@ keys/
 public/assets/heroes/*.jpg
 postgres/
 prisma/migrations/
+coverage/*
