@@ -1,6 +1,6 @@
 import request from 'supertest'
 import { testServer } from '../../test-server';
-import { prisma } from '../../../src/data/postgres';
+import { prisma } from '../../../src/data/postgres/postgres';
 
 
 describe('Todo routes testing', () => {
