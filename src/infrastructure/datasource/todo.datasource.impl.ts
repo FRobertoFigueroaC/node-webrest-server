@@ -1,4 +1,4 @@
-import { prisma } from '../../data/postgres';
+import { prisma } from '../../data/postgres/postgres';
 import { CreateTodoDto, CustomError, TodoDataSource, TodoEntity, UpdateTodoDto } from '../../domain';
 
 export class TodoDatasourceImpl implements TodoDataSource{
