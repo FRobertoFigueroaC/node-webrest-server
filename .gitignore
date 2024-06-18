@@ -5,5 +5,7 @@ keys/
 .env
 public/assets/heroes/*.jpg
 postgres/
+
 prisma/migrations/
 coverage/*
+mongo/*
