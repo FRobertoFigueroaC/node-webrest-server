@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { AuthController } from './controller';
-import { UserDataSourceImpl } from '../../infrastructure/datasource/user.datasource,impl';
+import { UserDataSourceImpl } from '../../infrastructure/datasource/user.datasource.impl';
 import { UserRepositoryImpl } from '../../infrastructure/repositories/user.repository.impl';
 
 
@@ -9,9 +9,7 @@ export class AuthRoutes {
     const router = Router();
 
     const dataSource = new UserDataSourceImpl();
-    console.log( dataSource )
     const userRepository = new UserRepositoryImpl( dataSource );
-    console.log( userRepository )
 
     const authController = new AuthController( userRepository );
 
