@@ -12,7 +12,7 @@ export class TodoRoutes {
     const todoRepository = new TodoRepositoryImpl( dataSource );
 
     const todoController = new TodosController( todoRepository );
-    //TODO fix this below
+
     router.get('/', todoController.getTodos);
     router.get('/:id', todoController.getTodoById);
     router.post('/', todoController.createTodos);
