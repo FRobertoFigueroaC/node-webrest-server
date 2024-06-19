@@ -11,6 +11,8 @@ export class UserDataSourceImpl implements UserDataSource {
       role: ['USER']
     });
 
+    await user.save();
+
     return UserEntity.fromObject( user );
   }
 

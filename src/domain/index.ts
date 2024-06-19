@@ -12,6 +12,7 @@ export * from './use-cases/auth/register-user';
 export * from './repositories/user.repository';
 export * from './entities/user.entity'
 export * from './datasources/user.datasource'
+export * from './dtos/auth/login-user.dto'
 
 
 

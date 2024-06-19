@@ -1,15 +1,26 @@
-import { Request, Response } from 'express';
-import { CustomError, UserRepository, RegisterUser, RegisterUserDto } from '../../domain';
+import { Request, response, Response } from 'express';
+import { CustomError, UserRepository, RegisterUser, LoginUserDto, RegisterUserDto } from '../../domain';
 import { ErrorHandler } from '../../infrastructure/helpers/errorHandler';
+import { AuthService } from '../services/auth.service';
 
 export class AuthController {
 
-  constructor( private readonly userRepository: UserRepository ) {}
+  constructor( 
+    // private readonly userRepository: UserRepository
+    private readonly authService: AuthService
+  ){}
   /**
    * login
    */
   public login = ( req: Request, res: Response ) => {
-    res.json('loginUser');
+    const [ error, loginUserDto ] = LoginUserDto.create( req.body );
+    if ( error ) {
+      const customError = CustomError.badRequest( error );
+      return ErrorHandler.throwError( res, customError );
+    }
+    this.authService.loginUser( loginUserDto! )
+      .then( response => res.status( 200 ).json( response ) )
+      .catch( error => ErrorHandler.throwError( res, error ) );
   }
 
   /**
@@ -22,14 +33,15 @@ export class AuthController {
       const customError = CustomError.badRequest( error );
       return ErrorHandler.throwError( res, customError );
     }
+
+    this.authService.registerUser(registerUserDto!)
+      .then( response => res.status( 201 ).json( response ) )
+      .catch( error => ErrorHandler.throwError( res, error ) );
    
-    new RegisterUser(this.userRepository)
+    /* new RegisterUser(this.userRepository)
       .execute( registerUserDto! )
       .then( todo => res.status( 201 ).json( todo ) )
-      .catch( error => {
-        console.log('error', error)
-        ErrorHandler.throwError( res, error )
-      } )
+      .catch( error => ErrorHandler.throwError( res, error )); */
     
   }
   
