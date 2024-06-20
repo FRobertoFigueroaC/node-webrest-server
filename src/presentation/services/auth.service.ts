@@ -1,10 +1,12 @@
 import { bcryptAdapter } from '../../config/bcrypt.adapter';
+import { envs } from '../../config/envs';
 import { jwtAdapter } from '../../config/jwt.adapter';
 import { UserModel } from '../../data/mongo';
 import { CustomError, RegisterUserDto, LoginUserDto, UserEntity } from '../../domain';
+import { EmailService } from './email.service';
 
 export class AuthService {
-  constructor() {
+  constructor(private readonly emailService:EmailService) {
     
   }
 
@@ -23,6 +25,7 @@ export class AuthService {
       const token = await jwtAdapter.generateToken({id: user.id});
 
       // Confirmation Email
+      await this.sendEmailValidationLink(user.email);
       
       const { password, ...userEntity } = UserEntity.fromObject( user );
 
@@ -55,5 +58,42 @@ export class AuthService {
       token: token
     }
 
+  }
+
+  private sendEmailValidationLink = async (email:string) => {
+    const token = await jwtAdapter.generateToken({email});
+    if (!token) throw CustomError.internalServer('Error creating the token');
+
+    const link = `${ envs.WEBSERVICE_URL }/auth/validate-email/${ token }`;
+
+    
+    const html = `
+    <h1>Validate your email</h1>
+    <p>Click on the following link to validate your email</p>
+    <a href="${ link }">Validate your email: ${ email }</a>
+    `;
+    const options = {
+      to: email,
+      subject: 'Validate your email',
+      htmlBody: html,
+    }
+    const isSet = await this.emailService.sendEmail( options );
+
+    if (!isSet) throw CustomError.internalServer('Error when trying to send the email');
+  }
+
+  public  validateEmail = async (token: string) => {
+    const payload = await jwtAdapter.validateToken(token);
+    if(!payload) throw CustomError.unAuthorized('Invalid token');
+    const { email } = payload as {email:string};
+
+    if(!email) throw CustomError.internalServer('Token not valid for this email');
+
+    const user = await UserModel.findOne({email});
+    if (!user) throw CustomError.internalServer('User does not exist');
+
+    user.emailValidated = true;
+    await user.save();
+    return true;
   }
 }
