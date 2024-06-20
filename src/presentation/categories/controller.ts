@@ -18,6 +18,6 @@ export class CategoryController {
       return ErrorHandler.throwError( res, customError );
     }
 
-    return res.json(createCategoryDto);
+    return res.json(req.body);
   };
 }
