@@ -1,5 +1,5 @@
 import { CategoryModel } from '../../data/mongo';
-import { CategoryEntity, CustomError, UserEntity } from '../../domain';
+import { CategoryEntity, CustomError, PaginationDto, UserEntity } from '../../domain';
 import { CreateCategoryDto } from '../../domain/dtos/category/create-category.dto';
 
 
@@ -32,12 +32,22 @@ export class CategoryService {
 
   }
 
-  async getCategories(){
+  async getCategories( paginationDto :PaginationDto){
+    const {page, limit} = paginationDto;
     try {
-      const categories = await CategoryModel.find();
+      const [ total , categories] = await Promise.all([
+        await CategoryModel.countDocuments(),
+        await CategoryModel.find()
+          .skip( ( page - 1 ) * limit )
+          .limit( limit )
+      ]);
+
       if(!categories) throw CustomError.badRequest('Categories not found');
 
-      return categories.map( CategoryEntity.fromObject);
+      return {
+        items: categories.map( category => { return CategoryEntity.fromObject(category)}), 
+        total
+      };
     } catch (error) {
       throw CustomError.internalServer( 'Error when trying to get catagories' );
     }
