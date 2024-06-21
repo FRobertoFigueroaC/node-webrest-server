@@ -6,7 +6,7 @@ const productSchema = new mongoose.Schema( {
   name: {
     type: String,
     unique: true,
-    required: [ true, 'Name is required' ]
+    required: [ true, 'Name is required' ],
   },
   available: {
     type: Boolean,
@@ -19,7 +19,7 @@ const productSchema = new mongoose.Schema( {
   description: {
     type: String
   },
-  Category: {
+  category: {
     type: mongoose.Schema.ObjectId,
     ref: 'Category',
     required: true

@@ -1,6 +1,6 @@
 import { CategoryModel } from '../../data/mongo';
-import { CategoryEntity, CustomError, PaginationDto, UserEntity } from '../../domain';
-import { CreateCategoryDto } from '../../domain/dtos/category/create-category.dto';
+import { CategoryEntity, CustomError, PaginationDto, UserEntity, CreateCategoryDto } from '../../domain';
+
 
 
 export class CategoryService {

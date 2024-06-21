@@ -1,16 +1,14 @@
 
 interface Result {
   items: any[];
-  pagination: paginationObject;
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    next?: number;
+    prev?: number;
+  };
 }
-interface paginationObject {
-  page:number;
-  limit:number;
-  total:number;
-  next?:number;
-  prev?:number;
-}
-
 
 export class PaginatedResponse {
   static formatResponse( items:any[], page: number, limit: number, total:number){
