@@ -1,3 +1,4 @@
+import { UserModel } from '../../data/mongo';
 import { CustomError } from '../errors/custom.error';
 
 

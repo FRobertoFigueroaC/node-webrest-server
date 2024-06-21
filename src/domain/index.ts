@@ -13,6 +13,7 @@ export * from './repositories/user.repository';
 export * from './entities/user.entity'
 export * from './datasources/user.datasource'
 export * from './dtos/auth/login-user.dto'
+export * from './entities/category.entity'
 
 
 
