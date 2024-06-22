@@ -9,3 +9,4 @@ postgres/
 prisma/migrations/
 coverage/*
 mongo/*
+uploads/*
