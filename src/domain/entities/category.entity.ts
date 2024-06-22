@@ -6,7 +6,7 @@ export class CategoryEntity {
     public id: string,
     public name: string,
     public available: boolean,
-    public userId: string,
+    public user: object,
   ) {
 
   }

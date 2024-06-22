@@ -42,6 +42,8 @@ export class ProductService {
         await ProductModel.find()
           .skip( ( page - 1 ) * limit )
           .limit( limit )
+          .populate('user', 'name email')
+          .populate('category')
       ] );
 
       if ( !products ) throw CustomError.badRequest( 'Products not found' );

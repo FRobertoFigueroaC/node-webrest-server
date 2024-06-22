@@ -40,6 +40,7 @@ export class CategoryService {
         await CategoryModel.find()
           .skip( ( page - 1 ) * limit )
           .limit( limit )
+          .populate( 'user', 'name email' )
       ]);
 
       if(!categories) throw CustomError.badRequest('Categories not found');

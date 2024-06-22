@@ -8,8 +8,8 @@ export class ProductEntity {
     public available: boolean,
     public price: number = 0,
     public description: string = '',
-    public userId: string,
-    public categoryId: string,
+    public user: string,
+    public category: object,
   ) {
 
   }
