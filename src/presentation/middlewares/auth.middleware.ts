@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { CustomError, UserEntity } from '../../domain';
 import { ErrorHandler } from '../../infrastructure/helpers/errorHandler';
-import { jwtAdapter } from '../../config/jwt.adapter';
+import { jwtAdapter } from '../../config';
 import { UserModel } from '../../data/mongo';
 
 export class AuthMiddleware {

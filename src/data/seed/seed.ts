@@ -1,4 +1,4 @@
-import { envs } from '../../config/envs';
+import { envs } from '../../config';
 import { CategoryModel, MongoDatabase, ProductModel, UserModel } from '../mongo';
 import { seedData } from './data'
 

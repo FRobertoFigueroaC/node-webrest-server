@@ -1,4 +1,4 @@
-import { regularExps } from '../../../config/regular-exp';
+import { regularExps } from '../../../config';
 
 export class RegisterUserDto {
   private constructor(

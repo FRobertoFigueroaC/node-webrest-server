@@ -1,4 +1,4 @@
-import { envs } from '../src/config/envs';
+import { envs } from '../src/config';
 import { Server } from '../src/presentation/server';
 import { MongoDatabase } from '../src/data/mongo';
 

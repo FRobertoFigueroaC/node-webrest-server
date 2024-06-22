@@ -3,7 +3,7 @@ import { AuthController } from './controller';
 import { UserDataSourceImpl } from '../../infrastructure/datasource/user.datasource.impl';
 import { UserRepositoryImpl } from '../../infrastructure/repositories/user.repository.impl';
 import { AuthService, EmailService } from '../services';
-import { envs } from '../../config/envs';
+import { envs } from '../../config';
 
 
 export class AuthRoutes {

@@ -1,4 +1,4 @@
-import { bcryptAdapter } from '../../config/bcrypt.adapter';
+import { bcryptAdapter } from '../../config';
 
 export const seedData = {
 

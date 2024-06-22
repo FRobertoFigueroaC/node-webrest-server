@@ -1,6 +1,6 @@
-import { bcryptAdapter } from '../../config/bcrypt.adapter';
-import { envs } from '../../config/envs';
-import { jwtAdapter } from '../../config/jwt.adapter';
+import { bcryptAdapter } from '../../config';
+import { envs } from '../../config';
+import { jwtAdapter } from '../../config';
 import { UserModel } from '../../data/mongo';
 import { CustomError, RegisterUserDto, LoginUserDto, UserEntity } from '../../domain';
 import { EmailService } from './email.service';
