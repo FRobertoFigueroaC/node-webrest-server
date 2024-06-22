@@ -11,7 +11,8 @@
     "test:watch": "npm run prisma:migrate:test && jest --watch",
     "test:coverage": "npm run prisma:migrate:test && jest --coverage",
     "prisma:migrate:prod": "prisma migrate deploy",
-    "prisma:migrate:test": "dotenv -e .env.test -- npx prisma migrate deploy"
+    "prisma:migrate:test": "dotenv -e .env.test -- npx prisma migrate deploy",
+    "seed": "ts-node-dev ./src/data/seed/seed.ts"
   },
   "keywords": [],
   "author": "",
